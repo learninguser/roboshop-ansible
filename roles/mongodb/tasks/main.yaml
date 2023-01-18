@@ -1,4 +1,4 @@
-- name: Copying Roboshop conf
+- name: Copying MongoDB repo file
   ansible.builtin.copy:
     src: mongod.repo
     dest: /etc/yum.repos.d/mongo.repo
