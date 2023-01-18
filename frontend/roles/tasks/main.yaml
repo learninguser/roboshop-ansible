@@ -1,0 +1,36 @@
+#print_message "Renaming each service with its Address"
+#for component in catalogue user cart shipping payment; do
+#sed -i -e "/$component/ s/localhost/$component-dev.learninguser.online/" /etc/nginx/default.d/roboshop.conf
+#done
+#status_check $log_file
+
+- name: Installing Nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: installed
+
+- name: Removing previous app content
+  ansible.builtin.file:
+    path: "{{ APP_LOC }}"
+    state: absent
+
+- name: Creating app content
+  ansible.builtin.file:
+    path: "{{ APP_LOC }}"
+    state: directory
+
+- name: Fetching Extracting frontend scripts
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+    dest: "{{ APP_LOC }}"
+    remote_src: yes
+
+- name: Copying Roboshop conf
+  ansible.builtin.copy:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Starting nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
