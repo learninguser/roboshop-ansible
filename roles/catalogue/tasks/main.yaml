@@ -31,16 +31,16 @@
     path: "{{ APP_LOC }}"
     state: present
 
-- name: Updating MongoDB host address
-  ansible.builtin.replace:
-    path: catalogue.service
-    regexp: '<MONGODB-SERVER-IPADDRESS>'
-    replace: 'mongodb-dev.learninguser.online'
-
 - name: Copying catalogue service file
   ansible.builtin.copy:
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
+
+- name: Updating MongoDB host address
+  ansible.builtin.replace:
+    path: /etc/systemd/system/catalogue.service
+    regexp: '<MONGODB-SERVER-IPADDRESS>'
+    replace: 'mongodb-dev.learninguser.online'
 
 - name: Reload service catalogue
   ansible.builtin.systemd:
