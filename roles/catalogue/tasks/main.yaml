@@ -60,6 +60,6 @@
 
 - name: Load catalogue schema
   community.mongodb.mongodb_shell:
-    login_host : mongodb-dev.learninguser.online
+    login_host : "mongodb-dev.learninguser.online"
     file: '/app/schema/catalogue.js'
     idempotent: yes
