@@ -45,7 +45,8 @@ if [ -z $component ]; then
     create_ec2
   done
 else
-  for serv in component
+  for serv in component; do
   COMPONENT="${serv}-${env}"
   create_ec2
+  done
 fi
