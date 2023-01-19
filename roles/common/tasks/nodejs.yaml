@@ -28,7 +28,7 @@
 
 - name: Install NodeJS dependencies
   community.general.npm:
-    path: "{{ APP_LOC }}"
+    path: "{{ app_loc }}"
     state: present
 
 - name: Copying {{ component }} service file

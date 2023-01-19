@@ -1,4 +1,4 @@
 component: catalogue
 app_loc: "/app"
-schema: true
+schema_load: true
 schema_type: "mongo"
