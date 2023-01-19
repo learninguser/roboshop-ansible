@@ -50,8 +50,9 @@
 
 - name: Reload service {{ component }}
   ansible.builtin.systemd:
-    name: "{{ component }}.service"
-    state: reloaded
+    name: "{{ component }}"
+    daemon_reload: yes
+    state: restarted
     enabled: yes
 
 - name: Load Schema
