@@ -36,18 +36,6 @@
     src: "{{ component }}.service"
     dest: /etc/systemd/system/{{ component }}.service
 
-- name: Updating MongoDB host address
-  ansible.builtin.replace:
-    path: /etc/systemd/system/{{ component }}.service
-    regexp: '<MONGODB-SERVER-IPADDRESS>'
-    replace: 'mongodb-dev.learninguser.online'
-
-- name: Updating Redis host address
-  ansible.builtin.replace:
-    path: /etc/systemd/system/{{ component }}.service
-    regexp: '<REDIS-SERVER-IPADDRESS>'
-    replace: 'redis-dev.learninguser.online'
-
 - name: Reload service {{ component }}
   ansible.builtin.systemd:
     name: "{{ component }}"
