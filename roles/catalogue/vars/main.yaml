@@ -1,1 +1,4 @@
-APP_LOC: /app
+component: catalogue
+app_loc: "/app"
+schema: true
+schema_type: "mongo"
