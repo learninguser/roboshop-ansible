@@ -1,0 +1,59 @@
+- name: Setup NodeJS repos
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install NodeJS
+  ansible.builtin.yum:
+    - name: nodejs
+    - state: installed
+
+- name: Add Roboshop user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Removing previous app content
+  ansible.builtin.file:
+    path: "{{ app_loc }}"
+    state: absent
+
+- name: Creating app content
+  ansible.builtin.file:
+    path: "{{ app_loc }}"
+    state: directory
+
+- name: Fetching Extracting {{ component }} scripts
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}.zip
+    dest: "{{ app_loc }}"
+    remote_src: yes
+
+- name: Install NodeJS dependencies
+  community.general.npm:
+    path: "{{ APP_LOC }}"
+    state: present
+
+- name: Copying {{ component }} service file
+  ansible.builtin.copy:
+    src: {{ component }}.service
+    dest: /etc/systemd/system/{{ component }}.service
+
+- name: Updating MongoDB host address
+  ansible.builtin.replace:
+    path: /etc/systemd/system/{{ component }}.service
+    regexp: '<MONGODB-SERVER-IPADDRESS>'
+    replace: 'mongodb-dev.learninguser.online'
+
+- name: Updating Redis host address
+  ansible.builtin.replace:
+    path: /etc/systemd/system/{{ component }}.service
+    regexp: '<REDIS-SERVER-IPADDRESS>'
+    replace: 'redis-dev.learninguser.online'
+
+- name: Reload service {{ component }}
+  ansible.builtin.systemd:
+    name: {{ component }}.service
+    state: reloaded
+    enabled: yes
+
+- name: Load Schema
+  ansible.builtin.include_tasks: "{{schema_type}}-schema.yml"
+  when: schema_load
