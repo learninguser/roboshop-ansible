@@ -39,7 +39,7 @@ if [ -z "${SGID}" ]; then
 fi
 
 component=$*
-if [ -z $component ]; then
+if [ -z ${component} ]; then
   for component in catalogue cart user shipping payment frontend mongodb mysql rabbitmq redis dispatch; do
     COMPONENT="${component}-${env}"
     create_ec2
