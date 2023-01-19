@@ -33,7 +33,7 @@
 
 - name: Copying {{ component }} service file
   ansible.builtin.copy:
-    src: {{ component }}.service
+    src: "{{ component }}.service"
     dest: /etc/systemd/system/{{ component }}.service
 
 - name: Updating MongoDB host address
@@ -50,7 +50,7 @@
 
 - name: Reload service {{ component }}
   ansible.builtin.systemd:
-    name: {{ component }}.service
+    name: "{{ component }}.service"
     state: reloaded
     enabled: yes
 
