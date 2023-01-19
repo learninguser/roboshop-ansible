@@ -1,0 +1,28 @@
+- name: Disabling default MySQL version and enabling v5.7
+  ansible.builtin.shell: dnf module disable mysql -y
+
+- name: Copying MySQL repo file
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+
+- name: Installing MySQL server
+  ansible.builtin.yum:
+    name:  mysql-community-server
+    state: installed
+
+- name: Start MySQL service
+  ansible.builtin.service:
+    name: mysqld
+    state: restarted
+    enabled: true
+
+- name: Changing default MySQL Root password
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass {{ mysql_root_password }}
+  ignore_errors: yes
+  register: out
+
+- name: Password Status
+  ansible.builtin.debug:
+    msg: Password is already Changed!!
+  when: out.rc == 1
