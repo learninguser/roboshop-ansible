@@ -3,7 +3,6 @@
 
 - name: Load App pre-requisites
   ansible.builtin.include_tasks: "app_preq.yaml"
-  when: schema_load
 
 - name: Install NodeJS dependencies
   community.general.npm:
