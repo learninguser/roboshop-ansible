@@ -1,0 +1,4 @@
+component: shipping
+app_loc: "/app"
+schema_load: true
+schema_type: "mysql"
