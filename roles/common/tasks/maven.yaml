@@ -7,7 +7,7 @@
   ansible.builtin.include_tasks: "app-preq.yaml"
 
 - name: Maven Build
-  ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar {{component}}.jar
+  ansible.builtin.shell: mvn clean package ; mv target/{{ component }}-1.0.jar {{ component }}.jar
   args:
     chdir: "{{ app_loc }}"
 
@@ -16,4 +16,4 @@
 
 - name: Load Schema
   ansible.builtin.include_tasks: "{{ schema_type }}-schema.yaml"
-  when: load_schema
+  when: schema_load
