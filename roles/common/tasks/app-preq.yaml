@@ -1,0 +1,24 @@
+- name: Install NodeJS
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: Add Roboshop user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Removing previous app content
+  ansible.builtin.file:
+    path: "{{ app_loc }}"
+    state: absent
+
+- name: Creating app content
+  ansible.builtin.file:
+    path: "{{ app_loc }}"
+    state: directory
+
+- name: Fetching Extracting {{ component }} scripts
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}.zip
+    dest: "{{ app_loc }}"
+    remote_src: yes
