@@ -1,0 +1,20 @@
+#SYSTEMD_SETUP
+
+- name: Install Python
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: installed
+
+- name: App Pre-requisites
+  ansible.builtin.include_tasks: "app-preq.yaml"
+
+- name: Downloading and installing dependencies
+  ansible.builtin.pip:
+    requirements: "/{{ app_loc }}/requirements.txt"
+    executable: pip3.6
+
+- name: Load Systemd
+  ansible.builtin.include_tasks: "systemd.yaml"

@@ -1,0 +1,3 @@
+component: payment
+app_loc: "/app"
+schema_load: true
