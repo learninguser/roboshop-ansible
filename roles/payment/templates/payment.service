@@ -4,13 +4,13 @@ Description=Payment Service
 [Service]
 User=root
 WorkingDirectory=/app
-Environment=CART_HOST=cart-dev.learninguser.online
-Environment=CART_PORT=8080
-Environment=USER_HOST=user-dev.learninguser.online
-Environment=USER_PORT=8080
-Environment=AMQP_HOST=rabbitmq-dev.learninguser.online
-Environment=AMQP_USER=roboshop
-Environment=AMQP_PASS={{ roboshop_rabbitmq_password }}
+Environment=CART_HOST={{ lookup('aws_ssm', "{{env}}.{{component}}.CART_HOST", region='us-east-1') }}
+Environment=CART_PORT={{ lookup('aws_ssm', "{{env}}.{{component}}.CART_PORT, region='us-east-1') }}
+Environment=USER_HOST={{ lookup('aws_ssm', "{{env}}.{{component}}.USER_HOST", region='us-east-1') }}
+Environment=USER_PORT={{ lookup('aws_ssm', "{{env}}.{{component}}.USER_PORT", region='us-east-1') }}
+Environment=AMQP_HOST={{ lookup('aws_ssm', "{{env}}.{{component}}.AMQP_HOST", region='us-east-1') }}
+Environment=AMQP_USER={{ lookup('aws_ssm', "{{env}}.{{component}}.AMQP_USER", region='us-east-1') }}
+Environment=AMQP_PASS={{ lookup('aws_ssm', "{{env}}.{{component}}.AMQP_PASS", region='us-east-1') }}
 
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 ExecStop=/bin/kill -9 $MAINPID

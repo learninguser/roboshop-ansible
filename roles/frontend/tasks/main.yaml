@@ -1,9 +1,3 @@
-#print_message "Renaming each service with its Address"
-#for component in catalogue user cart shipping payment; do
-#sed -i -e "/$component/ s/localhost/$component-dev.learninguser.online/" /etc/nginx/default.d/roboshop.conf
-#done
-#status_check $log_file
-
 - name: Installing Nginx
   ansible.builtin.yum:
     name: nginx
@@ -25,8 +19,8 @@
     dest: "{{ APP_LOC }}"
     remote_src: yes
 
-- name: Copying Roboshop conf
-  ansible.builtin.copy:
+- name: Renaming each service with its parameter value
+  ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 

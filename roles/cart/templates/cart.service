@@ -2,8 +2,8 @@
 Description = Cart Service
 [Service]
 User=roboshop
-Environment=REDIS_HOST=redis-dev.learninguser.online
-Environment=CATALOGUE_HOST=catalogue-dev.learninguser.online
+Environment=REDIS_HOST="{{ lookup('aws_ssm', "{{env}}.{{component}}.REDIS_HOST", region='us-east-1') }}"
+Environment=CATALOGUE_HOST="{{ lookup('aws_ssm', "{{env}}.{{component}}.CATALOGUE_HOST", region='us-east-1') }}"
 ExecStart=/bin/node /app/server.js
 SyslogIdentifier=cart
 
