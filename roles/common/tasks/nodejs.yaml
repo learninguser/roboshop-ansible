@@ -7,7 +7,7 @@
     state: installed
 
 - name: Load App pre-requisites
-  ansible.builtin.include_tasks: "app_preq.yaml"
+  ansible.builtin.include_tasks: "app-preq.yaml"
 
 - name: Install NodeJS dependencies
   community.general.npm:
