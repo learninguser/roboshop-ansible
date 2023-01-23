@@ -5,7 +5,7 @@ Description=Payment Service
 User=root
 WorkingDirectory=/app
 Environment=CART_HOST={{ lookup('aws_ssm', "{{env}}.{{component}}.CART_HOST", region='us-east-1') }}
-Environment=CART_PORT={{ lookup('aws_ssm', "{{env}}.{{component}}.CART_PORT, region='us-east-1') }}
+Environment=CART_PORT={{ lookup('aws_ssm', "{{env}}.{{component}}.CART_PORT", region='us-east-1') }}
 Environment=USER_HOST={{ lookup('aws_ssm', "{{env}}.{{component}}.USER_HOST", region='us-east-1') }}
 Environment=USER_PORT={{ lookup('aws_ssm', "{{env}}.{{component}}.USER_PORT", region='us-east-1') }}
 Environment=AMQP_HOST={{ lookup('aws_ssm', "{{env}}.{{component}}.AMQP_HOST", region='us-east-1') }}
