@@ -29,7 +29,8 @@
         - {name: "dev.user.MONGO_URL", value: "mongodb://mongodb-dev.learninguser.online:27017/users" }
         - {name: "dev.user.REDIS_HOST", value: "redis-dev.learninguser.online" }
 
-    ### PASSWORDS SHOULD NEVER BE KEPT IN THESE REPOS, THOSE SHOULD BE CREATED MAUALLY, BUT FOR LAB PURPOSE IAM CREATING HERE
+    ### PASSWORDS SHOULD NEVER BE KEPT IN THESE REPOS, THOSE SHOULD BE CREATED MAUALLY
+    ### BUT FOR LAB PURPOSE WE ARE HARD CODING THEM HERE
     - name: Create Secrets
       community.aws.aws_ssm_parameter_store:
         name: "{{ item.name }}"
